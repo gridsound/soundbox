@@ -22,7 +22,8 @@ class GSSoundbox {
 		document.body.addEventListener( "drop", e => {
 			e.preventDefault();
 			this.#ctx.resume();
-			this.#loadFiles( e.dataTransfer.files );
+			GSSoundbox.#getFilesWebkitDataTransferItems( e.dataTransfer.items )
+				.then( files => this.#loadFiles( files ) );
 		}, false );
 		el.addEventListener( "mousedown", e => {
 			if ( e.target.classList.contains( "gsuiSoundbox-cell" ) ) {
@@ -129,5 +130,39 @@ class GSSoundbox {
 
 		uiWave.setResolution( 300, 60 );
 		uiWave.drawBuffer( buf );
+	}
+	static #getFilesWebkitDataTransferItems( dataTransferItems ) {
+		const files = [];
+
+		return new Promise( res => {
+			const proms = [];
+
+			for ( let it of dataTransferItems ) {
+				proms.push( GSSoundbox.#traverseFileTreePromise( files, it.webkitGetAsEntry() ) );
+			}
+			Promise.all( proms ).then( () => res( files ) );
+		} );
+	}
+	static #traverseFileTreePromise( files, item, path = "" ) {
+		return new Promise( res => {
+			if ( item.isFile ) {
+				item.file( f => {
+					f.filepath = path + f.name;
+					files.push( f );
+					res( f );
+				} );
+			} else if ( item.isDirectory ) {
+				const dirReader = item.createReader();
+
+				dirReader.readEntries( entries => {
+					const proms = [];
+
+					for ( let ent of entries ) {
+						proms.push( GSSoundbox.#traverseFileTreePromise( files, ent, path + item.name + "/" ) );
+					}
+					res( Promise.all( proms ) );
+				} );
+			}
+		} );
 	}
 }
