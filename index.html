@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GridSound - Soundbox</title>
+<link rel="shortcut icon" href="/assets/favicon.png"/>
+<link rel="stylesheet" href="/assets/fonts/fonts.css"/>
+<link rel="stylesheet" href="/gs-ui-components/gsui.css"/>
+<link rel="stylesheet" href="gsuiSoundbox.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div id="title">
+	<span>Soundbox</span>
+	<span>by GridSound</span>
+</div>
+<div id="niceBorder">
+	<div id="mySoundbox"></div>
+</div>
+<div id="btns">
+	<label>
+		<input id="stopItself" type="checkbox" />
+		<span>stop itself</span>
+	</label>
+	<button id="clear" type="button">clear</button>
+</div>
+
+<div id="foot">
+	<span id="copyright">© 2022 <a href="https://gridsound.com">gridsound.com</a> all rights reserved</span>
+</div>
+
+<script>function lg( a ) { return console.log( ...arguments ), a; }</script>
+<script src="/gs-ui-components/gsui.js"></script>
+<script src="/gs-ui-components/gsuiWaveform/gsuiWaveform.js"></script>
+<script src="/gs-ui-components/gsuiWaveform/gsuiWaveform.draw.js"></script>
+<script src="gsuiSoundbox.js"></script>
+<script>
+const el = document.querySelector( "#mySoundbox" );
+const elClear = document.querySelector( "#clear" );
+const elStopItself = document.querySelector( "#stopItself" );
+const sndbx = new GSSoundbox();
+
+sndbx.init( el );
+elClear.onclick = () => sndbx.clear();
+elStopItself.onchange = () => sndbx.stopItself( elStopItself.checked );
+</script>
+</body>
+</html>
