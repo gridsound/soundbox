@@ -77,9 +77,9 @@ class GSSoundbox {
 		const cell = this.#elem.querySelector( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
 		const cursor = GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
 
-		cursor.style.transitionDuration = `${ dur * 2 }s`;
+		cursor.style.transitionDuration = `${ dur * 3 }s`;
 		cell.append( cursor );
-		setTimeout( () => cursor.style.left = "200%", 1 );
+		setTimeout( () => cursor.style.left = "300%", 1 );
 	}
 	#getNextId() {
 		return `${ this.#nextId++ }`;
