@@ -30,7 +30,7 @@
 </div>
 <div id="btns">
 	<label>
-		<input id="stopItself" type="checkbox"/>
+		<input id="stopItself" type="checkbox" checked/>
 		<span>stop itself</span>
 	</label>
 	<button id="clear" type="button">clear</button>
@@ -54,6 +54,7 @@ const sndbx = new GSSoundbox();
 sndbx.init( el );
 elClear.onclick = () => sndbx.clear();
 elStopItself.onchange = () => sndbx.stopItself( elStopItself.checked );
+elStopItself.onchange();
 </script>
 </body>
 </html>
