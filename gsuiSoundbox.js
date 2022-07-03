@@ -86,26 +86,34 @@ class GSSoundbox {
 		return `${ this.#nextId++ }`;
 	}
 	#loadFiles( files ) {
-		this.#elem.append( ...Array.from( files ).map( f => {
-			const id = this.#getNextId();
-			const cell = GSSoundbox.#createCell( id, f.name );
+		const proms = Array.from( files ).map( f => {
+			return new Promise( res => {
+				const id = this.#getNextId();
 
-			this.#loadFile( id, f ).then( buf => {
-				this.#buffers.set( id, {
-					buffer: buf,
-					absnList: [],
+				this.#loadFile( id, f ).then( buf => {
+					if ( buf ) {
+						const cell = GSSoundbox.#createCell( id, f.name );
+
+						this.#buffers.set( id, {
+							buffer: buf,
+							absnList: [],
+						} );
+						GSSoundbox.#drawWave( id, buf, cell.querySelector( "svg" ) );
+						res( cell );
+					}
+					res( null );
 				} );
-				GSSoundbox.#drawWave( id, buf, cell.querySelector( "svg" ) );
 			} );
-			return cell;
-		} ) );
+		} );
+
+		Promise.all( proms ).then( cells => this.#elem.append( ...cells.filter( Boolean ) ) );
 	}
 	#loadFile( id, file ) {
 		return new Promise( res => {
 			const rd = new FileReader();
 
 			rd.onload = e => {
-				this.#ctx.decodeAudioData( e.target.result ).then( buf => res( buf ) );
+				this.#ctx.decodeAudioData( e.target.result ).then( res, () => res(null) );
 			};
 			rd.readAsArrayBuffer( file );
 		} );
