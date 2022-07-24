@@ -37,19 +37,32 @@
 .gsuiSoundbox-cell:hover {
 	background-color: hsl( 0deg 0% 56% );
 }
-.gsuiSoundbox-cell-title {
+.gsuiSoundbox-cell-info {
 	position: absolute;
+	display: flex;
+	gap: 1ch;
+	align-items: baseline;
 	left: 2px;
 	right: 2px;
 	bottom: 2px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	text-align: start;
 	font-size: 10px;
 	font-weight: bold;
 	text-shadow: 1px 1px black;
 	pointer-events: none;
+	opacity: .5;
+}
+.gsuiSoundbox-cell:hover .gsuiSoundbox-cell-info {
+	opacity: 1;
+}
+.gsuiSoundbox-cell-title {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 12px;
+}
+.gsuiSoundbox-cell-duration {
+	opacity: .5;
 }
 .gsuiSoundbox-cell-wave {
 	position: relative;

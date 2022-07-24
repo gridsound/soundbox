@@ -92,7 +92,7 @@ class GSSoundbox {
 
 				this.#loadFile( id, f ).then( buf => {
 					if ( buf ) {
-						const cell = GSSoundbox.#createCell( id, f.name );
+						const cell = GSSoundbox.#createCell( id, f.name, buf.duration );
 
 						this.#buffers.set( id, {
 							buffer: buf,
@@ -113,25 +113,33 @@ class GSSoundbox {
 			const rd = new FileReader();
 
 			rd.onload = e => {
-				this.#ctx.decodeAudioData( e.target.result ).then( res, () => res(null) );
+				this.#ctx.decodeAudioData( e.target.result ).then( res, () => res( null ) );
 			};
 			rd.readAsArrayBuffer( file );
 		} );
 	}
-	static #createCell( id, name ) {
-		return GSUI.$createElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title: name },
+	static #createCell( id, name, dur ) {
+		const title = `${ name } (${ GSSoundbox.#formatDuration( dur ) })`;
+
+		return GSUI.$createElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
 			GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-wave" },
 				GSUI.$createElementSVG( "svg" ),
 			),
-			GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#removeExtension( name ) ),
+			GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-info" },
+				GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
+				GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
+			),
 		);
 	}
-	static #removeExtension( name ) {
+	static #formatTitle( name ) {
 		const lastPnt = name.lastIndexOf( "." );
 
 		return lastPnt > -1
 			? name.substr( 0, lastPnt )
 			: name;
+	}
+	static #formatDuration( dur ) {
+		return `${ dur.toFixed( 3 ) }s`;
 	}
 	static #drawWave( id, buf, svg ) {
 		const uiWave = new gsuiWaveform( svg );
