@@ -29,7 +29,7 @@ class GSSoundbox {
 				if ( e.button === 0 ) {
 					this.#playFile( e.target.dataset.id );
 				} else if ( e.button === 2 ) {
-					this.#stopFile( e.target.dataset.id );
+					this.#stopFile( this.#stopItself ? null : e.target.dataset.id );
 				}
 			}
 		}, false );
@@ -55,10 +55,7 @@ class GSSoundbox {
 		const obj = this.#buffers.get( id );
 
 		if ( this.#stopItself ) {
-			const cursors = this.#elem.querySelectorAll( `[data-id="${ id }"] .gsuiSoundbox-cell-cursor` );
-
-			obj.absnList.forEach( absn => absn.stop() );
-			cursors.forEach( el => el.remove() );
+			this.#stopFile();
 		}
 		absn.buffer = obj.buffer;
 		absn.connect( this.#ctxDest );
@@ -67,11 +64,14 @@ class GSSoundbox {
 		this.#createCursor( id, obj.buffer.duration );
 	}
 	#stopFile( id ) {
-		const obj = this.#buffers.get( id );
-		const cursors = this.#elem.querySelectorAll( `[data-id="${ id }"] .gsuiSoundbox-cell-cursor` );
+		const cursors = this.#elem.querySelectorAll( ( id ? `[data-id="${ id }"] ` : "" ) + ".gsuiSoundbox-cell-cursor" );
 
-		obj.absnList.forEach( absn => absn.stop() );
 		cursors.forEach( el => el.remove() );
+		if ( id ) {
+			this.#buffers.get( id ).absnList.forEach( absn => absn.stop() );
+		} else {
+			this.#buffers.forEach( obj => obj.absnList.forEach( absn => absn.stop() ) );
+		}
 	}
 	#createCursor( id, dur ) {
 		const cell = this.#elem.querySelector( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
