@@ -63,6 +63,9 @@ body {
 #btns button {
 	font: inherit;
 }
+#gain {
+	width: 80px;
+}
 
 #foot {
 	display: flex;

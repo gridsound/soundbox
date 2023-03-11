@@ -29,6 +29,7 @@
 	<div id="mySoundbox"></div>
 </div>
 <div id="btns">
+	<input id="gain" type="range" name="gain" min="0" max="100" value="100"/>
 	<label>
 		<input id="stopItself" type="checkbox" checked/>
 		<span>stop itself</span>
@@ -46,11 +47,13 @@
 <script src="gsuiSoundbox.js"></script>
 <script>
 const el = document.querySelector( "#mySoundbox" );
+const elGain = document.querySelector( "#gain" );
 const elClear = document.querySelector( "#clear" );
 const elStopItself = document.querySelector( "#stopItself" );
 const sndbx = new GSSoundbox();
 
 sndbx.init( el );
+elGain.oninput = () => sndbx.setGain( elGain.value / 100 );
 elClear.onclick = () => sndbx.clear();
 elStopItself.onchange = () => sndbx.stopItself( elStopItself.checked );
 elStopItself.onchange();

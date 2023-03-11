@@ -48,6 +48,9 @@ class GSSoundbox {
 	stopItself( b ) {
 		this.#stopItself = b;
 	}
+	setGain( v ) {
+		this.#ctxDest.gain.value = v;
+	}
 
 	// .........................................................................
 	#playFile( id ) {
