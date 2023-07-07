@@ -1,0 +1,14 @@
+{
+	"name": "Soundbox by GridSound",
+	"short_name": "Soundbox",
+	"description": "A simple app to check super quickly an entire audio sample library in few clicks",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"orientation": "landscape",
+	"background_color": "#22222a",
+	"theme_color": "#444",
+	"icons": [
+		{ "type": "image/png", "sizes": "96x96", "src": "/assets/icon/black/96.png" }
+	]
+}
