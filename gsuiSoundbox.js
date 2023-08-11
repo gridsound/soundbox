@@ -22,7 +22,7 @@ class GSSoundbox {
 		document.body.addEventListener( "drop", e => {
 			e.preventDefault();
 			this.#ctx.resume();
-			GSUI.$getFilesDataTransfert( e.dataTransfer.items ).then( fs => this.#loadFiles( fs ) );
+			GSUgetFilesDataTransfert( e.dataTransfer.items ).then( fs => this.#loadFiles( fs ) );
 		}, false );
 		el.addEventListener( "mousedown", e => {
 			if ( e.target.classList.contains( "gsuiSoundbox-cell" ) ) {
@@ -78,7 +78,7 @@ class GSSoundbox {
 	}
 	#createCursor( id, dur ) {
 		const cell = this.#elem.querySelector( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
-		const cursor = GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
+		const cursor = GSUcreateElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
 
 		cursor.style.transitionDuration = `${ dur * 3 }s`;
 		cell.append( cursor );
@@ -123,13 +123,13 @@ class GSSoundbox {
 	static #createCell( id, name, dur ) {
 		const title = `${ name } (${ GSSoundbox.#formatDuration( dur ) })`;
 
-		return GSUI.$createElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
-			GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-wave" },
-				GSUI.$createElementSVG( "svg" ),
+		return GSUcreateElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
+			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-wave" },
+				GSUcreateElementSVG( "svg" ),
 			),
-			GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-info" },
-				GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
-				GSUI.$createElement( "div", { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
+			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-info" },
+				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
+				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
 			),
 		);
 	}

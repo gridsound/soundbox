@@ -65,7 +65,9 @@ declare -a JSfilesProd=(
 
 declare -a JSfiles=(
 	# "checkBrowser.js"
-	"gs-ui-components/gsui.js"
+	"gs-utils/gs-utils.js"
+	"gs-utils/gs-utils-dom.js"
+	"gs-utils/gs-utils-files.js"
 	"gs-ui-components/gsuiWaveform/gsuiWaveform.js"
 	"gsuiSoundbox.js"
 	"run.js"
