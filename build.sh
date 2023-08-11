@@ -6,7 +6,7 @@ writeHeader() {
 	echo '<head>'
 	echo '<title>Soundbox by GridSound</title>'
 	echo '<meta charset="UTF-8"/>'
-	echo '<meta name="viewport" content="width=device-width, user-scalable=no"/>'
+	echo '<meta name="viewport" content="width=device-width"/>'
 	echo '<meta name="description" content="A simple app to check super quickly an entire audio sample library in few clicks"/>'
 	echo '<meta name="google" content="notranslate"/>'
 	echo '<meta property="og:type" content="website"/>'
