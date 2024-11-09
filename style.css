@@ -59,9 +59,6 @@ body {
 	align-items: center;
 	font-size: inherit;
 }
-#btns button {
-	font: inherit;
-}
 #gain {
 	width: 80px;
 }

@@ -55,6 +55,8 @@ writeJScompress() {
 declare -a CSSfiles=(
 	"assets/fonts/fonts.css"
 	"gs-ui-components/gsui.css"
+	"gs-ui-components/gsuiRipple/gsuiRipple.css"
+	"gs-ui-components/gsuiComButton/gsuiComButton.css"
 	"gsuiSoundbox.css"
 	"style.css"
 )
@@ -68,6 +70,9 @@ declare -a JSfiles=(
 	"gs-utils/gs-utils.js"
 	"gs-utils/gs-utils-dom.js"
 	"gs-utils/gs-utils-files.js"
+	"gs-ui-components/gsui0ne/gsui0ne.js"
+	"gs-ui-components/gsuiRipple/gsuiRipple.js"
+	"gs-ui-components/gsuiComButton/gsuiComButton.js"
 	"gs-ui-components/gsuiWaveform/gsuiWaveform.js"
 	"gsuiSoundbox.js"
 	"run.js"

@@ -14,7 +14,7 @@ document.body.append(
 			GSUcreateElement( "input", { id: "stopItself", type: "checkbox", checked: true } ),
 			GSUcreateElement( "span", null, "stop itself" ),
 		),
-		GSUcreateElement( "button", { id: "clear", type: "button" }, "clear" ),
+		GSUcreateElement( "gsui-com-button", { id: "clear", text: "clear" } ),
 	),
 	GSUcreateElement( "div", { id: "foot" },
 		GSUcreateElement( "span", { id: "copyright" },
