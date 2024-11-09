@@ -9,7 +9,7 @@
 	"background_color": "#22222a",
 	"theme_color": "#444",
 	"icons": [
-		{ "type": "image/png", "sizes": "96x96", "src": "/assets/icon/black/96.png" },
-		{ "type": "image/png", "sizes": "192x192", "src": "/assets/icon/black/192.png" }
+		{ "type": "image/png", "sizes": "96x96", "src": "assets/icon/black/96.png" },
+		{ "type": "image/png", "sizes": "192x192", "src": "assets/icon/black/192.png" }
 	]
 }

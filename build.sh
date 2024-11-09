@@ -5,7 +5,7 @@ writeHeader() {
 	echo '<html lang="en">'
 	echo '<head>'
 	echo '<title>Soundbox by GridSound</title>'
-	echo '<meta charset="UTF-8"/>'
+	echo '<meta charset="utf-8"/>'
 	echo '<meta name="viewport" content="width=device-width"/>'
 	echo '<meta name="description" content="A simple app to check super quickly an entire audio sample library in few clicks"/>'
 	echo '<meta name="google" content="notranslate"/>'
@@ -90,7 +90,7 @@ buildProd() {
 	writeHeader > $filename
 	writeCSScompress >> $filename
 	writeBody >> $filename
-	echo '<script>function lg( a ) { return a; }</script>' >> $filename
+	echo '<script>function lg(a){return a}</script>' >> $filename
 	writeJScompress >> $filename
 	writeEnd >> $filename
 }

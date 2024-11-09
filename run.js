@@ -18,7 +18,7 @@ document.body.append(
 	),
 	GSUcreateElement( "div", { id: "foot" },
 		GSUcreateElement( "span", { id: "copyright" },
-			"© 2023 ",
+			"© 2024 ",
 			GSUcreateElement( "a", { href: "https://gridsound.com" }, "gridsound.com" ),
 			" all rights reserved",
 		),

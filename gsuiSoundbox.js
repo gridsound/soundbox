@@ -137,7 +137,7 @@ class GSSoundbox {
 		const lastPnt = name.lastIndexOf( "." );
 
 		return lastPnt > -1
-			? name.substr( 0, lastPnt )
+			? name.substring( 0, lastPnt )
 			: name;
 	}
 	static #formatDuration( dur ) {
@@ -146,7 +146,7 @@ class GSSoundbox {
 	static #drawWave( id, buf, svg ) {
 		const uiWave = new gsuiWaveform( svg );
 
-		uiWave.setResolution( 300, 60 );
+		uiWave.$setResolution( 300, 60 );
 		uiWave.drawBuffer( buf );
 	}
 }
