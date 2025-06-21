@@ -9,8 +9,8 @@ class GSSoundbox {
 	#nextId = 0;
 
 	constructor() {
-		this.#ctx = new AudioContext();
-		this.#ctxDest = this.#ctx.createGain();
+		this.#ctx = GSUaudioContext();
+		this.#ctxDest = GSUaudioGain( this.#ctx );
 		this.#ctxDest.connect( this.#ctx.destination );
 	}
 
@@ -43,7 +43,7 @@ class GSSoundbox {
 	clear() {
 		this.#buffers.forEach( obj => obj.absnList.forEach( absn => absn.stop() ) );
 		this.#buffers.clear();
-		this.#elem.querySelectorAll( ".gsuiSoundbox-cell" ).forEach( c => c.remove() );
+		GSUdomQSA( this.#elem, ".gsuiSoundbox-cell" ).forEach( c => c.remove() );
 	}
 	stopItself( b ) {
 		this.#stopItself = b;
@@ -54,7 +54,7 @@ class GSSoundbox {
 
 	// .........................................................................
 	#playFile( id ) {
-		const absn = this.#ctx.createBufferSource();
+		const absn = GSUaudioBufferSource( this.#ctx );
 		const obj = this.#buffers.get( id );
 
 		if ( this.#stopItself ) {
@@ -67,7 +67,7 @@ class GSSoundbox {
 		this.#createCursor( id, obj.buffer.duration );
 	}
 	#stopFile( id ) {
-		const cursors = this.#elem.querySelectorAll( ( id ? `[data-id="${ id }"] ` : "" ) + ".gsuiSoundbox-cell-cursor" );
+		const cursors = GSUdomQSA( this.#elem, `${ id ? `[data-id="${ id }"] ` : "" }.gsuiSoundbox-cell-cursor` );
 
 		cursors.forEach( el => el.remove() );
 		if ( id ) {
@@ -77,12 +77,12 @@ class GSSoundbox {
 		}
 	}
 	#createCursor( id, dur ) {
-		const cell = this.#elem.querySelector( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
+		const cell = GSUdomQS( this.#elem, `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
 		const cursor = GSUcreateElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
 
 		cursor.style.transitionDuration = `${ dur * 3 }s`;
 		cell.append( cursor );
-		setTimeout( () => cursor.style.left = "300%", 1 );
+		GSUsetTimeout( () => cursor.style.left = "300%", .001 );
 	}
 	#getNextId() {
 		return `${ this.#nextId++ }`;
@@ -100,7 +100,7 @@ class GSSoundbox {
 							buffer: buf,
 							absnList: [],
 						} );
-						GSSoundbox.#drawWave( id, buf, cell.querySelector( "svg" ) );
+						GSSoundbox.#drawWave( id, buf, GSUdomQS( cell, "svg" ) );
 						res( cell );
 					}
 					res( null );

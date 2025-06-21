@@ -25,10 +25,10 @@ document.body.append(
 	),
 );
 
-const el = document.querySelector( "#mySoundbox" );
-const elGain = document.querySelector( "#gain" );
-const elClear = document.querySelector( "#clear" );
-const elStopItself = document.querySelector( "#stopItself" );
+const el = GSUdomQS( "#mySoundbox" );
+const elGain = GSUdomQS( "#gain" );
+const elClear = GSUdomQS( "#clear" );
+const elStopItself = GSUdomQS( "#stopItself" );
 const sndbx = new GSSoundbox();
 
 sndbx.init( el );
