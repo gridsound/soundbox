@@ -3,6 +3,7 @@
 class GSSoundbox {
 	#ctx = null;
 	#elem = null;
+	#loop = false;
 	#ctxDest = null;
 	#buffers = new Map();
 	#stopItself = false;
@@ -51,6 +52,9 @@ class GSSoundbox {
 	setGain( v ) {
 		this.#ctxDest.gain.value = v;
 	}
+	$setLoop( b ) {
+		this.#loop = !!b;
+	}
 
 	// .........................................................................
 	#playFile( id ) {
@@ -60,6 +64,7 @@ class GSSoundbox {
 		if ( this.#stopItself ) {
 			this.#stopFile();
 		}
+		absn.loop = this.#loop;
 		absn.buffer = obj.buffer;
 		absn.connect( this.#ctxDest );
 		absn.start();
@@ -80,9 +85,15 @@ class GSSoundbox {
 		const cell = GSUdomQS( this.#elem, `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
 		const cursor = GSUcreateElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
 
-		cursor.style.transitionDuration = `${ dur * 3 }s`;
+		if ( !this.#loop ) {
+			cursor.style.transition = `${ dur * 3 }s linear left`;
+		} else {
+			cursor.style.animation = `gsuiSoundbox-cell-cursor-anim ${ dur }s linear infinite forwards`;
+		}
 		cell.append( cursor );
-		GSUsetTimeout( () => cursor.style.left = "300%", .001 );
+		if ( !this.#loop ) {
+			GSUsetTimeout( () => cursor.style.left = "300%", .001 );
+		}
 	}
 	#getNextId() {
 		return `${ this.#nextId++ }`;
