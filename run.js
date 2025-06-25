@@ -18,6 +18,7 @@ document.body.append(
 			GSUcreateInput( { id: "loop", type: "checkbox" } ),
 			GSUcreateSpan( null, "loop" ),
 		),
+		GSUcreateElement( "gsui-com-button", { id: "stop", text: "stop" } ),
 		GSUcreateElement( "gsui-com-button", { id: "clear", text: "clear" } ),
 	),
 	GSUcreateDiv( { id: "foot" },
@@ -32,6 +33,7 @@ document.body.append(
 const el = GSUdomQS( "#mySoundbox" );
 const elGain = GSUdomQS( "#gain" );
 const elLoop = GSUdomQS( "#loop" );
+const elStop = GSUdomQS( "#stop" );
 const elClear = GSUdomQS( "#clear" );
 const elStopItself = GSUdomQS( "#stopItself" );
 const sndbx = new GSSoundbox();
@@ -40,6 +42,7 @@ sndbx.init( el );
 
 elGain.oninput = () => sndbx.setGain( elGain.value / 100 );
 elLoop.onchange = () => sndbx.$setLoop( elLoop.checked );
+elStop.onclick = () => sndbx.$stop();
 elClear.onclick = () => sndbx.clear();
 elStopItself.onchange = () => sndbx.stopItself( elStopItself.checked );
 

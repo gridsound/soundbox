@@ -41,6 +41,9 @@ class GSSoundbox {
 			}
 		}, false );
 	}
+	$stop() {
+		this.#stopFile();
+	}
 	clear() {
 		this.#buffers.forEach( obj => obj.absnList.forEach( absn => absn.stop() ) );
 		this.#buffers.clear();
