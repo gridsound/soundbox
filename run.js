@@ -1,6 +1,6 @@
 "use strict";
 
-document.body.append(
+GSUdomBody.append(
 	GSUcreateDiv( { id: "title" },
 		GSUcreateSpan( null, "Soundbox" ),
 		GSUcreateSpan( null, "by GridSound" ),
@@ -29,6 +29,8 @@ document.body.append(
 		),
 	),
 );
+
+GSUdomSetAttr( GSUdomBody, "data-skin", "gray" );
 
 const el = GSUdomQS( "#mySoundbox" );
 const elGain = GSUdomQS( "#gain" );

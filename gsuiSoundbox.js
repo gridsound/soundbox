@@ -19,8 +19,8 @@ class GSSoundbox {
 	init( el ) {
 		this.#elem = el;
 		el.classList.add( "gsuiSoundbox" );
-		document.body.addEventListener( "dragover", e => e.preventDefault(), false );
-		document.body.addEventListener( "drop", e => {
+		GSUdomBody.addEventListener( "dragover", e => e.preventDefault(), false );
+		GSUdomBody.addEventListener( "drop", e => {
 			e.preventDefault();
 			this.#ctx.resume();
 			GSUgetFilesDataTransfert( e.dataTransfer.items ).then( fs => this.#loadFiles( fs ) );
@@ -139,7 +139,7 @@ class GSSoundbox {
 
 		return GSUcreateElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
 			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-wave" },
-				GSUcreateElementSVG( "svg" ),
+				GSUcreateElement( "svg" ),
 			),
 			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-info" },
 				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),

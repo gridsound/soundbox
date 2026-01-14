@@ -6,7 +6,7 @@ self.addEventListener( "install", e => {
 			"/",
 			"/index.html",
 			"/manifest.json",
-			"/assets/favicon.png",
+			"/assets/ico.svg",
 			"/assets/fonts/fa-duotone-900.woff2",
 			"/assets/fonts/montserrat-500-latin.woff2",
 			"/assets/fonts/montserrat-700-latin.woff2",
