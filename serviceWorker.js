@@ -1,7 +1,7 @@
 "use strict";
 
 self.addEventListener( "install", e => {
-	e.waitUntil( caches.open( "soundbox1" ).then( cache => (
+	e.waitUntil( caches.open( "soundbox1" ).then( cache =>
 		cache.addAll( [
 			"/",
 			"/index.html",
@@ -11,7 +11,7 @@ self.addEventListener( "install", e => {
 			"/assets/fonts/montserrat-500-latin.woff2",
 			"/assets/fonts/montserrat-700-latin.woff2",
 		] )
-	) ) );
+	) );
 } );
 
 self.addEventListener( "fetch", e => {

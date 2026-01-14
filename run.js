@@ -23,7 +23,7 @@ GSUdomBody.append(
 	),
 	GSUcreateDiv( { id: "foot" },
 		GSUcreateSpan( { id: "copyright" },
-			`© ${ ( new Date() ).getFullYear() } `,
+			`© ${ new Date().getFullYear() } `,
 			GSUcreateA( { href: "https://gridsound.com" }, "gridsound.com" ),
 			" all rights reserved",
 		),
