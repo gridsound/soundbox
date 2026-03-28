@@ -28,6 +28,7 @@
 		"gs-utils/gs-utils-dom.js",
 		"gs-utils/gs-utils-func.js",
 		"gs-utils/gs-utils-files.js",
+		"gs-utils/gs-utils-jquery.js",
 		"gs-utils/gs-utils-checkType.dev.js",
 		"gs-utils/gs-utils-audio-nodes.dev.js",
 

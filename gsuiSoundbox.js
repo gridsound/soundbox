@@ -2,7 +2,7 @@
 
 class GSSoundbox {
 	#ctx = null;
-	#elem = null;
+	#elem = $noop;
 	#loop = false;
 	#ctxDest = null;
 	#buffers = new Map();
@@ -18,14 +18,14 @@ class GSSoundbox {
 	// .........................................................................
 	init( el ) {
 		this.#elem = el;
-		el.classList.add( "gsuiSoundbox" );
-		GSUdomBody.addEventListener( "dragover", e => e.preventDefault(), false );
-		GSUdomBody.addEventListener( "drop", e => {
+		el.$addClass( "gsuiSoundbox" );
+		$body.$addEventListener( "dragover", e => e.preventDefault(), false );
+		$body.$addEventListener( "drop", e => {
 			e.preventDefault();
 			this.#ctx.resume();
 			GSUgetFilesDataTransfert( e.dataTransfer.items ).then( fs => this.#loadFiles( fs ) );
 		}, false );
-		el.addEventListener( "mousedown", e => {
+		el.$addEventListener( "mousedown", e => {
 			if ( e.target.classList.contains( "gsuiSoundbox-cell" ) ) {
 				if ( e.button === 0 ) {
 					this.#playFile( e.target.dataset.id );
@@ -34,8 +34,8 @@ class GSSoundbox {
 				}
 			}
 		}, false );
-		el.addEventListener( "contextmenu", e => e.preventDefault(), false );
-		el.addEventListener( "transitionend", e => {
+		el.$addEventListener( "contextmenu", e => e.preventDefault(), false );
+		el.$addEventListener( "transitionend", e => {
 			if ( e.target.classList.contains( "gsuiSoundbox-cell-cursor" ) ) {
 				e.target.remove();
 			}
@@ -47,7 +47,7 @@ class GSSoundbox {
 	clear() {
 		this.#buffers.forEach( obj => obj.absnList.forEach( absn => absn.stop() ) );
 		this.#buffers.clear();
-		GSUdomQSA( this.#elem, ".gsuiSoundbox-cell" ).forEach( c => c.remove() );
+		this.#elem.$query( ".gsuiSoundbox-cell" ).$remove();
 	}
 	stopItself( b ) {
 		this.#stopItself = b;
@@ -75,9 +75,7 @@ class GSSoundbox {
 		this.#createCursor( id, obj.buffer.duration );
 	}
 	#stopFile( id ) {
-		const cursors = GSUdomQSA( this.#elem, `${ id ? `[data-id="${ id }"] ` : "" }.gsuiSoundbox-cell-cursor` );
-
-		cursors.forEach( el => el.remove() );
+		this.#elem.$query( `${ id ? `[data-id="${ id }"] ` : "" }.gsuiSoundbox-cell-cursor` ).$remove();
 		if ( id ) {
 			this.#buffers.get( id ).absnList.forEach( absn => absn.stop() );
 		} else {
@@ -85,17 +83,15 @@ class GSSoundbox {
 		}
 	}
 	#createCursor( id, dur ) {
-		const cell = GSUdomQS( this.#elem, `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
-		const cursor = GSUcreateElement( "div", { class: "gsuiSoundbox-cell-cursor" } );
+		const cell = this.#elem.$query( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
+		const cursor = $( "<div>" ).$addClass( "gsuiSoundbox-cell-cursor" );
 
+		!this.#loop
+			? cursor.$css( "transition", `${ dur * 3 }s linear left` )
+			: cursor.$css( "animation", `gsuiSoundbox-cell-cursor-anim ${ dur }s linear infinite forwards` );
+		cell.$append( cursor );
 		if ( !this.#loop ) {
-			cursor.style.transition = `${ dur * 3 }s linear left`;
-		} else {
-			cursor.style.animation = `gsuiSoundbox-cell-cursor-anim ${ dur }s linear infinite forwards`;
-		}
-		cell.append( cursor );
-		if ( !this.#loop ) {
-			GSUsetTimeout( () => cursor.style.left = "300%", .001 );
+			GSUsetTimeout( () => cursor.$left( 300, "%" ), .001 );
 		}
 	}
 	#getNextId() {
@@ -114,7 +110,7 @@ class GSSoundbox {
 							buffer: buf,
 							absnList: [],
 						} );
-						GSSoundbox.#drawWave( id, buf, GSUdomQS( cell, "svg" ) );
+						GSSoundbox.#drawWave( id, buf, cell.$query( "svg" ) );
 						res( cell );
 					}
 					res( null );
@@ -122,7 +118,7 @@ class GSSoundbox {
 			} );
 		} );
 
-		Promise.all( proms ).then( cells => this.#elem.append( ...cells.filter( Boolean ) ) );
+		Promise.all( proms ).then( cells => this.#elem.$append( ...cells.filter( Boolean ) ) );
 	}
 	#loadFile( id, file ) {
 		return new Promise( res => {
@@ -137,7 +133,7 @@ class GSSoundbox {
 	static #createCell( id, name, dur ) {
 		const title = `${ name } (${ GSSoundbox.#formatDuration( dur ) })`;
 
-		return GSUcreateElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
+		return $( GSUcreateElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
 			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-wave" },
 				GSUcreateElement( "svg" ),
 			),
@@ -145,7 +141,7 @@ class GSSoundbox {
 				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
 				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
 			),
-		);
+		) );
 	}
 	static #formatTitle( name ) {
 		const lastPnt = name.lastIndexOf( "." );
@@ -158,9 +154,9 @@ class GSSoundbox {
 		return `${ dur.toFixed( 3 ) }s`;
 	}
 	static #drawWave( id, buf, svg ) {
-		const uiWave = new gsuiWaveform( svg );
+		const uiWave = new gsuiWaveform( svg.$get( 0 ) );
 
 		uiWave.$setResolution( 300, 60 );
-		uiWave.drawBuffer( buf );
+		uiWave.$drawBuffer( buf );
 	}
 }

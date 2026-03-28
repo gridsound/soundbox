@@ -1,6 +1,6 @@
 "use strict";
 
-GSUdomBody.append(
+$body.$append(
 	GSUcreateDiv( { id: "title" },
 		GSUcreateSpan( null, "Soundbox" ),
 		GSUcreateSpan( null, "by GridSound" ),
@@ -30,23 +30,23 @@ GSUdomBody.append(
 	),
 );
 
-GSUdomSetAttr( GSUdomBody, "data-skin", "gray" );
+$body.$setAttr( "data-skin", "gray" );
 
-const el = GSUdomQS( "#mySoundbox" );
-const elGain = GSUdomQS( "#gain" );
-const elLoop = GSUdomQS( "#loop" );
-const elStop = GSUdomQS( "#stop" );
-const elClear = GSUdomQS( "#clear" );
-const elStopItself = GSUdomQS( "#stopItself" );
+const el = $( "#mySoundbox" );
+const elGain = $( "#gain" );
+const elLoop = $( "#loop" );
+const elStop = $( "#stop" );
+const elClear = $( "#clear" );
+const elStopItself = $( "#stopItself" );
 const sndbx = new GSSoundbox();
 
 sndbx.init( el );
 
-elGain.oninput = () => sndbx.setGain( elGain.value / 100 );
-elLoop.onchange = () => sndbx.$setLoop( elLoop.checked );
-elStop.onclick = () => sndbx.$stop();
-elClear.onclick = () => sndbx.clear();
-elStopItself.onchange = () => sndbx.stopItself( elStopItself.checked );
+elGain.$oninput( () => sndbx.setGain( elGain.$value() / 100 ) );
+elLoop.$onchange( () => sndbx.$setLoop( elLoop.$checked() ) );
+elStop.$onclick( () => sndbx.$stop() );
+elClear.$onclick( () => sndbx.clear() );
+elStopItself.$onchange( () => sndbx.stopItself( elStopItself.$checked() ) );
 
-elLoop.onchange();
-elStopItself.onchange();
+elLoop.$trigger( "onchange" );
+elStopItself.$trigger( "onchange" );
