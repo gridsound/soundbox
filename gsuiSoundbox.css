@@ -12,8 +12,7 @@
 }
 .gsuiSoundbox:empty::before {
 	position: absolute;
-	align-self: center;
-	justify-self: center;
+	place-self: center;
 	content: "drop your samples here";
 	padding: 8px 16px;
 	border-radius: 4px;
@@ -48,7 +47,7 @@
 	text-align: start;
 	font-size: 10px;
 	font-weight: bold;
-	text-shadow: 1px 1px black;
+	text-shadow: 1px 1px #000;
 	pointer-events: none;
 	opacity: .5;
 }
@@ -100,6 +99,6 @@
 	opacity: .2;
 }
 @keyframes gsuiSoundbox-cell-cursor-anim {
-	  0% { left:   0%; }
-	100% { left: 100%; }
+	from { left: 0%; }
+	to { left: 100%; }
 }

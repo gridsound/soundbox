@@ -29,8 +29,7 @@
 		"gs-utils/gs-utils-func.js",
 		"gs-utils/gs-utils-files.js",
 		"gs-utils/gs-utils-jquery.js",
-		"gs-utils/gs-utils-checkType.dev.js",
-		"gs-utils/gs-utils-audio-nodes.dev.js",
+		"gs-utils/gs-utils-audio-nodes.js",
 
 		"gs-ui-components/gsui0ne/gsui0ne.js",
 		"gs-ui-components/gsuiRipple/gsuiRipple.js",
