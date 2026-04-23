@@ -20,6 +20,8 @@
 	"cssDep": [
 		"gs-ui-components/gsui.css",
 		"gs-ui-components/gsui-gray.css",
+		"gs-ui-components/gsuiIcon/gsuiIcon.css",
+		"gs-ui-components/gsuiCursor/gsuiCursor.css",
 		"gs-ui-components/gsuiRipple/gsuiRipple.css",
 		"gs-ui-components/gsuiComButton/gsuiComButton.css"
 	],
