@@ -133,13 +133,13 @@ class GSSoundbox {
 	static #createCell( id, name, dur ) {
 		const title = `${ name } (${ GSSoundbox.#formatDuration( dur ) })`;
 
-		return $( GSUcreateElement( "button", { class: "gsuiSoundbox-cell", "data-id": id, title },
-			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-wave" },
-				GSUcreateElement( "svg" ),
+		return $( $.$button( { class: "gsuiSoundbox-cell", "data-id": id, title },
+			$.$div( { class: "gsuiSoundbox-cell-wave" },
+				$.$elem( "svg" ),
 			),
-			GSUcreateElement( "div", { class: "gsuiSoundbox-cell-info" },
-				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
-				GSUcreateElement( "div", { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
+			$.$div( { class: "gsuiSoundbox-cell-info" },
+				$.$div( { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
+				$.$div( { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
 			),
 		) );
 	}

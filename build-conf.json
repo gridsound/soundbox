@@ -27,7 +27,6 @@
 	],
 	"jsDep": [
 		"gs-utils/gs-utils.js",
-		"gs-utils/gs-utils-dom.js",
 		"gs-utils/gs-utils-func.js",
 		"gs-utils/gs-utils-files.js",
 		"gs-utils/gs-utils-jquery.js",
