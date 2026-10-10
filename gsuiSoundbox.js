@@ -8,6 +8,8 @@ class GSSoundbox {
 	#buffers = new Map();
 	#stopItself = false;
 	#nextId = 0;
+	static #waveW = 300;
+	static #waveH = 60;
 
 	constructor() {
 		this.#ctx = GSUaudioContext();
@@ -110,7 +112,7 @@ class GSSoundbox {
 							buffer: buf,
 							absnList: [],
 						} );
-						GSSoundbox.#drawWave( id, buf, cell.$query( "svg" ) );
+						GSSoundbox.#drawWave( buf, cell.$query( "path" ) );
 						res( cell );
 					}
 					res( null );
@@ -132,10 +134,15 @@ class GSSoundbox {
 	}
 	static #createCell( id, name, dur ) {
 		const title = `${ name } (${ GSSoundbox.#formatDuration( dur ) })`;
+		const w = GSSoundbox.#waveW;
+		const h = GSSoundbox.#waveH;
 
 		return $( $.$button( { class: "gsuiSoundbox-cell", "data-id": id, title },
 			$.$div( { class: "gsuiSoundbox-cell-wave" },
-				$.$elem( "svg" ),
+				$.$elem( "svg", { viewBox: `0 ${ h / -2 } ${ w } ${ h }`, preserveAspectRatio: "none" },
+					$.$elem( "path" ),
+					$.$elem( "path" ),
+				),
 			),
 			$.$div( { class: "gsuiSoundbox-cell-info" },
 				$.$div( { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
@@ -153,10 +160,9 @@ class GSSoundbox {
 	static #formatDuration( dur ) {
 		return `${ dur.toFixed( 3 ) }s`;
 	}
-	static #drawWave( id, buf, svg ) {
-		const uiWave = new gsuiWaveform( svg.$get( 0 ) );
+	static #drawWave( buf, paths ) {
+		const data = gsuiWaveform.$getPathChans( buf, GSSoundbox.#waveW, GSSoundbox.#waveH );
 
-		uiWave.$setResolution( 300, 60 );
-		uiWave.$drawBuffer( buf );
+		paths.$setAttr( "d", ( _, i ) => `M${ data[ i ].replaceAll( ",", "L" ) }` );
 	}
 }

@@ -34,15 +34,26 @@
 	transition: .2s background-color;
 
 	&:hover {
-		background-color: hsl( 0deg 0% 56% );
+		background-color: #fff5;
 	}
 	svg {
+		--gsui-bv-col-l: #c13333;
+		--gsui-bv-col-r: #3524ff;
 		position: absolute;
-		fill: #22222a;
+		left: 0;
 		width: 100%;
 		height: 100%;
-		left: 0;
-		opacity: .5;
+		pointer-events: none;
+
+		path {
+			color: var( --gsui-bv-col-l );
+			fill: currentColor;
+			mix-blend-mode: overlay;
+
+			& + path {
+				color: var( --gsui-bv-col-r );
+			}
+		}
 	}
 }
 .gsuiSoundbox-cell-info {
@@ -78,7 +89,6 @@
 	overflow: hidden;
 	width: 100%;
 	height: 60px;
-	border-radius: 2px;
 	background-color: #0002;
 	pointer-events: none;
 }

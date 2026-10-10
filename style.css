@@ -52,13 +52,14 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 16px;
-	font-size: 12px;
+	font-size: 14px;
 	margin-top: 16px;
 
 	label {
 		display: flex;
 		align-items: center;
 		font-size: inherit;
+		gap: .8ch;
 	}
 }
 #gain {
