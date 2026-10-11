@@ -139,7 +139,7 @@ class GSSoundbox {
 
 		return $( $.$button( { class: "gsuiSoundbox-cell", "data-id": id, title },
 			$.$div( { class: "gsuiSoundbox-cell-wave" },
-				$.$elem( "svg", { viewBox: `0 ${ h / -2 } ${ w } ${ h }`, preserveAspectRatio: "none" },
+				$.$elem( "svg", { viewBox: `0 0 ${ w } ${ h }`, preserveAspectRatio: "none" },
 					$.$elem( "path" ),
 					$.$elem( "path" ),
 				),
