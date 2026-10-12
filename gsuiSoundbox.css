@@ -24,8 +24,10 @@
 }
 
 .gsuiSoundbox-cell {
+	overflow: hidden;
 	position: relative;
 	box-sizing: border-box;
+	height: 60px;
 	border: 0;
 	padding: 0;
 	outline: 0;
@@ -84,20 +86,13 @@
 .gsuiSoundbox-cell-duration {
 	opacity: .5;
 }
-.gsuiSoundbox-cell-wave {
-	position: relative;
-	overflow: hidden;
-	width: 100%;
-	height: 60px;
-	background-color: #0002;
-	pointer-events: none;
-}
 .gsuiSoundbox-cell-cursor {
 	position: absolute;
 	left: 0;
 	top: 0;
 	bottom: 0;
 	width: 2px;
+	pointer-events: none;
 	background-color: currentColor;
 
 	&::before {

@@ -85,7 +85,7 @@ class GSSoundbox {
 		}
 	}
 	#createCursor( id, dur ) {
-		const cell = this.#elem.$query( `[data-id="${ id }"] .gsuiSoundbox-cell-wave` );
+		const cell = this.#elem.$query( `[data-id="${ id }"]` );
 		const cursor = $( "<div>" ).$addClass( "gsuiSoundbox-cell-cursor" );
 
 		!this.#loop
@@ -112,7 +112,7 @@ class GSSoundbox {
 							buffer: buf,
 							absnList: [],
 						} );
-						GSSoundbox.#drawWave( buf, cell.$query( "path" ) );
+						cell.$query( "gsui-waveform" ).$message( GSEV_WAVEFORM_BUFFER, buf );
 						res( cell );
 					}
 					res( null );
@@ -138,12 +138,7 @@ class GSSoundbox {
 		const h = GSSoundbox.#waveH;
 
 		return $( $.$button( { class: "gsuiSoundbox-cell", "data-id": id, title },
-			$.$div( { class: "gsuiSoundbox-cell-wave" },
-				$.$elem( "svg", { viewBox: `0 0 ${ w } ${ h }`, preserveAspectRatio: "none" },
-					$.$elem( "path" ),
-					$.$elem( "path" ),
-				),
-			),
+			$.$elem( "gsui-waveform", { res: `${ w } ${ h }` } ),
 			$.$div( { class: "gsuiSoundbox-cell-info" },
 				$.$div( { class: "gsuiSoundbox-cell-title" }, GSSoundbox.#formatTitle( name ) ),
 				$.$div( { class: "gsuiSoundbox-cell-duration" }, GSSoundbox.#formatDuration( dur ) ),
@@ -159,10 +154,5 @@ class GSSoundbox {
 	}
 	static #formatDuration( dur ) {
 		return `${ dur.toFixed( 3 ) }s`;
-	}
-	static #drawWave( buf, paths ) {
-		const data = gsuiWaveform.$getPathChans( buf, GSSoundbox.#waveW, GSSoundbox.#waveH );
-
-		paths.$setAttr( "d", ( _, i ) => `M${ data[ i ].replaceAll( ",", "L" ) }` );
 	}
 }

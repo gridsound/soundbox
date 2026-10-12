@@ -23,16 +23,19 @@
 		"gs-ui-components/gsuiIcon/gsuiIcon.css",
 		"gs-ui-components/gsuiCursor/gsuiCursor.css",
 		"gs-ui-components/gsuiRipple/gsuiRipple.css",
-		"gs-ui-components/gsuiComButton/gsuiComButton.css"
+		"gs-ui-components/gsuiComButton/gsuiComButton.css",
+		"gs-ui-components/gsuiWaveform/gsuiWaveform.css"
 	],
 	"jsDep": [
 		"gs-utils/gs-utils.js",
 		"gs-utils/gs-utils-func.js",
 		"gs-utils/gs-utils-math.js",
 		"gs-utils/gs-utils-jquery.js",
+		"gs-utils/gs-utils-json.js",
 		"gs-utils/gs-utils-files.js",
 		"gs-utils/gs-utils-audio-nodes.js",
 
+		"gs-ui-components/gsui-constantes.js",
 		"gs-ui-components/gsui0ne/gsui0ne.js",
 		"gs-ui-components/gsuiRipple/gsuiRipple.js",
 		"gs-ui-components/gsuiComButton/gsuiComButton.js",
